@@ -4,4 +4,4 @@
 
 База данных: MySQL, 10 таблиц.
 
-Описание функций и схема базы данных: [functions-and-db.docx](./functions-and-db.docx)
+Описание функций и схема базы данных: [functions-and-db.pdf](./functions-and-db.pdf)
