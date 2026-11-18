@@ -1,0 +1,19 @@
+services:
+  db:
+    image: postgres:17
+    container_name: cinema_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: cinema
+      POSTGRES_USER: cinema_user
+      POSTGRES_PASSWORD: cinema_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database/data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cinema_user -d cinema"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
