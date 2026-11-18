@@ -1,2 +1,11 @@
 # Данные локальной базы PostgreSQL (docker compose)
 database/data/
+
+# .NET build files
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
