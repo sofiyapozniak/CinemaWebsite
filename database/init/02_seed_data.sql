@@ -1,5 +1,4 @@
-
--- Начальные данные для справочников CinemaWebsite
+-- Начальные данные для базы данных CinemaWebsite
 
 -- Роли пользователей
 INSERT INTO public.roles (name)
@@ -25,3 +24,20 @@ VALUES
     ('Мультфильм'),
     ('Триллер'),
     ('Мелодрама');
+
+-- Начальный кинотеатр
+INSERT INTO public.cinemas (name, address, phone, email, working_hours)
+VALUES (
+    'Cinema',
+    'Адрес кинотеатра',
+    NULL,
+    NULL,
+    '10:00-23:00'
+);
+
+-- Первый зал для кинотеатра
+INSERT INTO public.halls (cinema_id, name)
+VALUES (
+    (SELECT id FROM public.cinemas WHERE name = 'Cinema'),
+    'Зал 1'
+);
