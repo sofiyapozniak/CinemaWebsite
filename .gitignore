@@ -9,3 +9,12 @@ obj/
 .vs/
 *.user
 *.suo
+[Dd]ebug/
+[Rr]elease/
+
+# Артефакты тестов и публикации
+TestResults/
+publish/
+
+# Переменные окружения
+.env
