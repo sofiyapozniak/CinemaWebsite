@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+namespace CinemaWebsite.Data.Entities;
 
-namespace CinemaWebsite.Data.Entities.Movie;
-
-public class Movies
+public class Movie
 {
     public long Id { get; set; }
 

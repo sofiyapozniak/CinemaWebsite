@@ -1,13 +1,12 @@
-﻿
-using CinemaWebsite.Data.Entities.Booking;
+using CinemaWebsite.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CinemaWebsite.DAL.Extensions;
+namespace CinemaWebsite.DAL.Configurations;
 
-public class TicketsConfiguration : IEntityTypeConfiguration<Tickets>
+public class TicketConfiguration : IEntityTypeConfiguration<Ticket>
 {
-    public void Configure(EntityTypeBuilder<Tickets> builder)
+    public void Configure(EntityTypeBuilder<Ticket> builder)
     {
         builder.ToTable("tickets", table =>
         {

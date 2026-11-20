@@ -1,13 +1,12 @@
-﻿
-using CinemaWebsite.Data.Entities.Transaction;
+using CinemaWebsite.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CinemaWebsite.DAL.Extensions;
+namespace CinemaWebsite.DAL.Configurations;
 
-public class TransactionsConfiguration : IEntityTypeConfiguration<Transactions>
+public class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
 {
-    public void Configure(EntityTypeBuilder<Transactions> builder)
+    public void Configure(EntityTypeBuilder<Transaction> builder)
     {
         builder.ToTable("transactions", table =>
         {

@@ -1,11 +1,4 @@
-﻿using CinemaWebsite.Data.Entities.User;
-using CinemaWebsite.Data.Entities.Movie;
-using CinemaWebsite.Data.Entities.Genre;
-using CinemaWebsite.Data.Entities.Cinema;
-using CinemaWebsite.Data.Entities.Seat;
-using CinemaWebsite.Data.Entities.Session;
-using CinemaWebsite.Data.Entities.Booking;
-using CinemaWebsite.Data.Entities.Transaction;
+﻿using CinemaWebsite.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CinemaWebsite.DAL;
@@ -20,29 +13,29 @@ public class CinemaWebsiteDatabaseContext : DbContext
 
     public DbSet<Role> Roles => Set<Role>();
 
-    public DbSet<Users> Users => Set<Users>();
+    public DbSet<User> Users => Set<User>();
 
-    public DbSet<Transactions> Transactions => Set<Transactions>();
+    public DbSet<Transaction> Transactions => Set<Transaction>();
 
-    public DbSet<Movies> Movies => Set<Movies>();
+    public DbSet<Movie> Movies => Set<Movie>();
 
-    public DbSet<Genres> Genres => Set<Genres>();
+    public DbSet<Genre> Genres => Set<Genre>();
 
-    public DbSet<MovieGenres> MovieGenres => Set<MovieGenres>();
+    public DbSet<MovieGenre> MovieGenres => Set<MovieGenre>();
 
-    public DbSet<Cinemas> Cinemas => Set<Cinemas>();
+    public DbSet<Cinema> Cinemas => Set<Cinema>();
 
-    public DbSet<Halls> Halls => Set<Halls>();
+    public DbSet<Hall> Halls => Set<Hall>();
 
-    public DbSet<SeatTypes> SeatTypes => Set<SeatTypes>();
+    public DbSet<SeatType> SeatTypes => Set<SeatType>();
 
-    public DbSet<Seats> Seats => Set<Seats>();
+    public DbSet<Seat> Seats => Set<Seat>();
 
-    public DbSet<Sessions> Sessions => Set<Sessions>();
+    public DbSet<Session> Sessions => Set<Session>();
 
-    public DbSet<Bookings> Bookings => Set<Bookings>();
+    public DbSet<Booking> Bookings => Set<Booking>();
 
-    public DbSet<Tickets> Tickets => Set<Tickets>();
+    public DbSet<Ticket> Tickets => Set<Ticket>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

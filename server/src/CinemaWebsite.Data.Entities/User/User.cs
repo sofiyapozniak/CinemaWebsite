@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+namespace CinemaWebsite.Data.Entities;
 
-
-namespace CinemaWebsite.Data.Entities.User;
-
-public class Users
+public class User
 {
     public long Id { get; set; }
 
@@ -29,4 +22,3 @@ public class Users
 
     public Role Role { get; set; } = null!;
 }
-

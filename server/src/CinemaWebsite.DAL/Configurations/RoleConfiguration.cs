@@ -1,9 +1,8 @@
-﻿
-using CinemaWebsite.Data.Entities.User;
+using CinemaWebsite.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CinemaWebsite.DAL.Extensions;
+namespace CinemaWebsite.DAL.Configurations;
 
 public class RoleConfiguration : IEntityTypeConfiguration<Role>
 {

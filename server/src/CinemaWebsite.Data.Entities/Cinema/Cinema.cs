@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-namespace CinemaWebsite.Data.Entities.Cinema;
+namespace CinemaWebsite.Data.Entities;
 
-public class Cinemas
+public class Cinema
 {
     public long Id { get; set; }
 
@@ -19,5 +14,5 @@ public class Cinemas
 
     public string? WorkingHours { get; set; }
 
-    public ICollection<Halls> Halls { get; set; } = new List<Halls>();
+    public ICollection<Hall> Halls { get; set; } = new List<Hall>();
 }

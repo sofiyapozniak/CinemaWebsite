@@ -1,13 +1,12 @@
-﻿
-using CinemaWebsite.Data.Entities.Genre;
+using CinemaWebsite.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CinemaWebsite.DAL.Extensions;
+namespace CinemaWebsite.DAL.Configurations;
 
-public class MovieGenresConfiguration : IEntityTypeConfiguration<MovieGenres>
+public class MovieGenreConfiguration : IEntityTypeConfiguration<MovieGenre>
 {
-    public void Configure(EntityTypeBuilder<MovieGenres> builder)
+    public void Configure(EntityTypeBuilder<MovieGenre> builder)
     {
         builder.ToTable("movie_genres");
 

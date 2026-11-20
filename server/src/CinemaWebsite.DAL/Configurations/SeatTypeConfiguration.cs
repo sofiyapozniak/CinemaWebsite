@@ -1,13 +1,12 @@
-﻿
-using CinemaWebsite.Data.Entities.Seat;
+using CinemaWebsite.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CinemaWebsite.DAL.Extensions;
+namespace CinemaWebsite.DAL.Configurations;
 
-public class SeatTypesConfiguration : IEntityTypeConfiguration<SeatTypes>
+public class SeatTypeConfiguration : IEntityTypeConfiguration<SeatType>
 {
-    public void Configure(EntityTypeBuilder<SeatTypes> builder)
+    public void Configure(EntityTypeBuilder<SeatType> builder)
     {
         builder.ToTable("seat_types");
 

@@ -1,13 +1,12 @@
-﻿
-using CinemaWebsite.Data.Entities.Session;
+using CinemaWebsite.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CinemaWebsite.DAL.Extensions;
+namespace CinemaWebsite.DAL.Configurations;
 
-public class SessionsConfiguration : IEntityTypeConfiguration<Sessions>
+public class SessionConfiguration : IEntityTypeConfiguration<Session>
 {
-    public void Configure(EntityTypeBuilder<Sessions> builder)
+    public void Configure(EntityTypeBuilder<Session> builder)
     {
         builder.ToTable("sessions", table =>
         {

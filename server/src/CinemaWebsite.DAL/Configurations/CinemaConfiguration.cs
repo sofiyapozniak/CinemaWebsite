@@ -1,13 +1,12 @@
-﻿
-using CinemaWebsite.Data.Entities.Cinema;
+using CinemaWebsite.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CinemaWebsite.DAL.Extensions;
+namespace CinemaWebsite.DAL.Configurations;
 
-public class CinemasConfiguration : IEntityTypeConfiguration<Cinemas>
+public class CinemaConfiguration : IEntityTypeConfiguration<Cinema>
 {
-    public void Configure(EntityTypeBuilder<Cinemas> builder)
+    public void Configure(EntityTypeBuilder<Cinema> builder)
     {
         builder.ToTable("cinemas");
 

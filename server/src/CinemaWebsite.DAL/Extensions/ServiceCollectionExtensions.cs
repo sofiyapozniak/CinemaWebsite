@@ -1,4 +1,5 @@
-﻿
+﻿using CinemaWebsite.DAL.Abstractions;
+using CinemaWebsite.DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,6 +13,10 @@ public static class ServiceCollectionExtensions
     {
         services.AddDbContext<CinemaWebsiteDatabaseContext>(
             options => options.UseNpgsql(connectionString));
+
+        services.AddScoped(
+            typeof(IBaseRepository<>),
+            typeof(BaseRepository<>));
 
         return services;
     }
