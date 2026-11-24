@@ -1,39 +1,148 @@
+
+using System.Text;
+using CinemaWebsite.BLL.Auth;
 using CinemaWebsite.DAL.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+// Controllers
+builder.Services.AddControllers();
 
-builder.Services.AddDal(
-    builder.Configuration.GetConnectionString("Database")!);
+// Swagger
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "CinemaWebsite API",
+        Version = "v1"
+    });
+
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Enter your JWT token."
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
+
+// Database
+var connectionString = builder.Configuration
+    .GetConnectionString("Database")
+    ?? throw new InvalidOperationException(
+        "Connection string 'Database' is not configured.");
+
+builder.Services.AddDal(connectionString);
+
+// JWT settings
+var jwtOptions = builder.Configuration
+    .GetSection("Jwt")
+    .Get<JwtOptions>()
+    ?? throw new InvalidOperationException(
+        "JWT configuration is missing.");
+
+jwtOptions.Secret = builder.Configuration["Jwt:Secret"]
+    ?? throw new InvalidOperationException(
+        "JWT Secret is not configured.");
+
+if (Encoding.UTF8.GetByteCount(jwtOptions.Secret) < 32)
+{
+    throw new InvalidOperationException(
+        "JWT Secret must contain at least 32 bytes.");
+}
+
+builder.Services.AddSingleton(jwtOptions);
+
+// Authentication service
+builder.Services.AddScoped<IAuthService, AuthService>();
+
+// JWT authentication
+var signingKey = new SymmetricSecurityKey(
+    Encoding.UTF8.GetBytes(jwtOptions.Secret));
+
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = jwtOptions.Issuer,
+
+            ValidateAudience = true,
+            ValidAudience = jwtOptions.Audience,
+
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = signingKey,
+
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.Zero
+        };
+    });
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Swagger UI
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint(
+            "/swagger/v1/swagger.json",
+            "CinemaWebsite API v1");
+    });
 }
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers();
+
+// Temporary test endpoint
 var summaries = new[]
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    "Freezing", "Bracing", "Chilly", "Cool", "Mild",
+    "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
 app.MapGet("/weatherforecast", () =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
+    var forecast = Enumerable.Range(1, 5).Select(index =>
+        new WeatherForecast(
             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
             Random.Shared.Next(-20, 55),
             summaries[Random.Shared.Next(summaries.Length)]
         ))
         .ToArray();
+
     return forecast;
 })
 .WithName("GetWeatherForecast");
