@@ -1,4 +1,4 @@
-﻿namespace CinemaWebsite.BLL.Auth;
+﻿namespace CinemaWebsite.BLL.Features.Auth;
 
 public class JwtOptions
 {

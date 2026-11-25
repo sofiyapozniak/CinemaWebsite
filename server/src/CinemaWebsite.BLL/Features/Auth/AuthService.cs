@@ -1,13 +1,14 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using CinemaWebsite.BLL.Auth.DTOs;
+using CinemaWebsite.BLL.Features.Auth.DTOs;
 using CinemaWebsite.DAL.Abstractions;
 using CinemaWebsite.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
-namespace CinemaWebsite.BLL.Auth;
+namespace CinemaWebsite.BLL.Features.Auth;
 
 public class AuthService : IAuthService
 {
@@ -63,8 +64,8 @@ public class AuthService : IAuthService
             Phone = request.Phone?.Trim(),
             Balance = 0,
             CreatedAt = DateTime.SpecifyKind(
-            DateTime.UtcNow,
-            DateTimeKind.Unspecified)
+                DateTime.UtcNow,
+                DateTimeKind.Unspecified)
         };
 
         user.PasswordHash = _passwordHasher.HashPassword(
@@ -162,12 +163,7 @@ public class AuthService : IAuthService
         return new AuthResponse
         {
             AccessToken = tokenString,
-            ExpiresAt = expiresAt,
-            UserId = user.Id,
-            FirstName = user.FirstName,
-            LastName = user.LastName,
-            Email = user.Email,
-            Role = roleName
+            ExpiresAt = expiresAt
         };
     }
 }

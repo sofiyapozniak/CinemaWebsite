@@ -1,6 +1,6 @@
-﻿using CinemaWebsite.BLL.Auth.DTOs;
+﻿using CinemaWebsite.BLL.Features.Auth.DTOs;
 
-namespace CinemaWebsite.BLL.Auth;
+namespace CinemaWebsite.BLL.Features.Auth;
 
 public interface IAuthService
 {
