@@ -1,7 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 
-namespace CinemaWebsite.BLL.Auth.DTOs;
+namespace CinemaWebsite.BLL.Features.Auth.DTOs;
 
 public class LoginRequest
 {

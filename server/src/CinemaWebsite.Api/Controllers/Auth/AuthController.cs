@@ -1,10 +1,10 @@
-﻿using CinemaWebsite.BLL.Auth;
-using CinemaWebsite.BLL.Auth.DTOs;
+﻿using CinemaWebsite.BLL.Features.Auth;
+using CinemaWebsite.BLL.Features.Auth.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
-namespace CinemaWebsite.Api.Controllers;
-
+namespace CinemaWebsite.Api.Controllers.Auth;
 [ApiController]
 [Route("api/[controller]")]
 public class AuthController : ControllerBase
@@ -60,14 +60,13 @@ public class AuthController : ControllerBase
     [HttpGet("me")]
     public IActionResult GetCurrentUser()
     {
-        return Ok(new
+        var response = new CurrentUserResponse
         {
-            IsAuthenticated = User.Identity?.IsAuthenticated,
-            Claims = User.Claims.Select(claim => new
-            {
-                claim.Type,
-                claim.Value
-            })
-        });
+            UserId = long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!),
+            Email = User.FindFirstValue(ClaimTypes.Email)!,
+            Role = User.FindFirstValue(ClaimTypes.Role)!
+        };
+
+        return Ok(response);
     }
 }

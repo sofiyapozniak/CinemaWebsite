@@ -1,6 +1,6 @@
 
 using System.Text;
-using CinemaWebsite.BLL.Auth;
+using CinemaWebsite.BLL.Features.Auth;
 using CinemaWebsite.DAL.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
